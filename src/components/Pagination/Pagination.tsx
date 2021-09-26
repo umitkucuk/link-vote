@@ -44,13 +44,14 @@ const Pagination = ({
 
   if (totalPages > 1) {
     return (
-      <PaginationWrapper>
+      <PaginationWrapper data-testid="pagination">
         <Button
           icon="chevron-left"
-          size="small"
           margin="0.6rem"
           isDisabled={page === firstPage}
+          iconOnly
           onClick={goPrev}
+          data-testid="pagination-prev"
         />
         <>
           {[...Array(totalPages)].map((_, index) => {
@@ -58,10 +59,11 @@ const Pagination = ({
             return (
               <Button
                 variant={getButtonVariant(item)}
-                size="small"
                 key={item}
                 margin="0.6rem"
+                iconOnly
                 onClick={() => handleChange(item)}
+                data-testid="pagination-item"
               >
                 {item}
               </Button>
@@ -70,10 +72,11 @@ const Pagination = ({
         </>
         <Button
           icon="chevron-right"
-          size="small"
           margin="0.6rem"
           isDisabled={page === totalPages}
+          iconOnly
           onClick={goNext}
+          data-testid="pagination-next"
         />
       </PaginationWrapper>
     )

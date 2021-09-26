@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-const useForm = (initialData = {}) => {
-  const [formData, setFormData] = useState<any>(initialData)
+const useForm = (initialData?: any) => {
+  const [formData, setFormData] = useState<any>(initialData || {})
 
   const setValue = (name: string, value: any) => {
-    setFormData({ ...formData, [name]: value })
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
   const clear = () => setFormData(initialData)

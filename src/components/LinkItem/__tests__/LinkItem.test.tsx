@@ -24,5 +24,7 @@ describe('LinkItem tests', () => {
     fireEvent.click(upVoteButton)
     fireEvent.click(downVoteButton)
     fireEvent.click(removeButton)
+
+    expect(onVote).toHaveBeenCalled()
   })
 })

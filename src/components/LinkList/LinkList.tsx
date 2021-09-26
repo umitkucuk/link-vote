@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import LinkItem from 'components/LinkItem'
+import LinkItem, { LinkItemType } from 'components/LinkItem'
+import NoContent from 'components/NoContent'
 import { getLinksByPage } from 'utils'
 import { LINKS_PER_PAGE } from 'enums'
 import { LinkListWrapper, LinkListItems, LinkListItem } from './LinkList.style'
@@ -17,7 +18,7 @@ const LinkList = ({ links, page, onVote, onRemove, onPageChange }) => {
     return (
       <LinkListWrapper>
         <LinkListItems>
-          {pagedLinks.map((link) => {
+          {pagedLinks.map((link: LinkItemType) => {
             return (
               <LinkListItem key={link.id}>
                 <LinkItem link={link} onVote={onVote} onRemove={onRemove} />
@@ -29,11 +30,7 @@ const LinkList = ({ links, page, onVote, onRemove, onPageChange }) => {
     )
   }
 
-  return (
-    <div>
-      <p>Link yok...</p>
-    </div>
-  )
+  return <NoContent />
 }
 
 export default LinkList

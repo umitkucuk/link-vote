@@ -8,9 +8,15 @@ import { LinkItemType } from 'components/LinkItem'
  */
 export const sortLinks = (
   links: LinkItemType[],
-  sortType: string,
+  sortType?: string,
 ): LinkItemType[] => {
   switch (sortType) {
+    case 'DATE_DESC': {
+      const sortedArray = links.sort(
+        (linkOne, linkTwo) => linkTwo.created - linkOne.created,
+      )
+      return sortedArray
+    }
     case 'POINTS_ASC': {
       const sortedArray = links.sort(
         (linkOne, linkTwo) =>
@@ -30,6 +36,13 @@ export const sortLinks = (
   }
 }
 
+/**
+ * It slices the links array by the page number.
+ * @param {Array} links - The link items.
+ * @param {number} page - The active page.
+ * @param {number} itemsPerPage - Items per page.
+ * @returns {Array}
+ */
 export const getLinksByPage = (
   links: LinkItemType[],
   page: number,
@@ -62,7 +75,6 @@ export const getDataFromStorage = (name: string) => {
     return null
   } catch (e) {
     console.error(`method=getDataFromStorage error=${e}`)
-    return null
   }
 }
 
@@ -82,6 +94,5 @@ export const setDataToStorage = (name: string, data: any) => {
     localStorage.setItem(name, data)
   } catch (e) {
     console.error(`method=setDataToStorage error=${e}`)
-    return null
   }
 }

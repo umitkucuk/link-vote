@@ -1,14 +1,30 @@
-import React, { useState, memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
+import { HTMLSelectProps } from 'utils/props'
 import { StyledSelect } from './Select.style'
 
-const Select = ({ value: initialValue, children, onChange, ...rest }) => {
-  const [value, setValue] = useState(initialValue || '')
+export interface SelectProps {
+  value: any
+  children?: React.ReactNode
+  onChange: (value: any) => void
+}
+
+const Select = ({
+  value: initialValue,
+  children,
+  onChange,
+  ...rest
+}: SelectProps) => {
+  const [value, setValue] = useState<any>(initialValue || '')
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target
     setValue(value)
     onChange(value)
   }
+
+  useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
 
   return (
     <StyledSelect value={value} onChange={handleOnChange} {...rest}>

@@ -7,6 +7,7 @@ export type IconName =
   | 'arrow-up'
   | 'chevron-left'
   | 'chevron-right'
+  | 'close'
   | 'trash'
 
 export interface IconProps {
@@ -25,6 +26,8 @@ const renderSVG = (name: string, props) => {
       return <SVGIcon.ChevronLeft {...props} />
     case 'chevron-right':
       return <SVGIcon.ChevronRight {...props} />
+    case 'close':
+      return <SVGIcon.Close {...props} />
     case 'trash':
       return <SVGIcon.Trash {...props} />
     default:

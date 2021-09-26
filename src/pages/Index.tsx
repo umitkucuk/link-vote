@@ -1,30 +1,39 @@
-import { memo } from 'react'
+import { useCallback, memo } from 'react'
 import Layout from 'components/Layout'
 import LinkListHeader from 'components/LinkListHeader'
 import LinkList from 'components/LinkList'
+import { LinkItemType } from 'components/LinkItem'
 import Pagination from 'components/Pagination'
-import { useGlobal } from 'utils/context'
+import { sortLinks } from 'utils'
+import { useGlobal, useToaster } from 'utils/context'
 
-type SortType = 'POINTS_ASC' | 'POINTS_DESC'
+type SortType = 'DATE_DESC' | 'POINTS_ASC' | 'POINTS_DESC'
 
 const Index = () => {
   const { state, dispatch } = useGlobal()
+  const { addToast } = useToaster()
 
   const onVote = (id: number, point: number) => {
-    if (!state.sortType) {
-      dispatch({ type: 'SORT_LINKS', payload: 'POINTS_DESC' })
+    if (state.sortType === 'DATE_DESC') {
+      dispatch({ type: 'CHANGE_SORT', payload: 'POINTS_DESC' })
     }
     dispatch({ type: 'VOTE_LINK', payload: { linkId: id, linkPoint: point } })
   }
 
-  const onRemove = (id: number) => {
-    dispatch({ type: 'REMOVE_LINK', payload: id })
+  const onRemove = (link: LinkItemType) => {
+    addToast(
+      <span>
+        <strong>{link.name}</strong> removed.
+      </span>,
+    )
+    dispatch({ type: 'REMOVE_LINK', payload: link.id })
   }
 
-  const onSort = (sortType: SortType) => {
-    console.log(sortType)
-    dispatch({ type: 'SORT_LINKS', payload: sortType })
-  }
+  const onSort = useCallback(
+    (sortType: SortType) =>
+      dispatch({ type: 'CHANGE_SORT', payload: sortType }),
+    [],
+  )
 
   const onPageChange = (page: number) => {
     if (page > 0) {
@@ -32,11 +41,16 @@ const Index = () => {
     }
   }
 
+  const handleSortLinks = useCallback(
+    () => sortLinks(state.links, state.sortType),
+    [state.links, state.sortType],
+  )
+
   return (
     <Layout>
       <LinkListHeader sortType={state.sortType} onSort={onSort} />
       <LinkList
-        links={state.links}
+        links={handleSortLinks()}
         page={state.page}
         onVote={onVote}
         onRemove={onRemove}

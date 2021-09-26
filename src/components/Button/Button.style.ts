@@ -31,11 +31,13 @@ const BUTTON_SIZE = {
   small: css`
     font-size: ${FONT_SIZE.small};
     height: ${WIDTH_HEIGHT.small};
+    min-width: 8rem;
     padding: 0 1.2rem;
   `,
   medium: css`
     font-size: ${FONT_SIZE.medium};
     height: ${WIDTH_HEIGHT.medium};
+    min-width: 10.8rem;
     padding: 0 1.6rem;
   `,
 }
@@ -90,7 +92,7 @@ const getButtonSize = (props: ButtonProps) => {
   if (iconOnly) {
     return css`
       font-size: ${FONT_SIZE[size]};
-      width: ${WIDTH_HEIGHT[size]};
+      min-width: ${WIDTH_HEIGHT[size]};
       height: ${WIDTH_HEIGHT[size]};
     `
   }

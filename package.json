@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@svgr/cli": "^5.5.0",
+    "@testing-library/react-hooks": "^7.0.2",
     "@types/react-router-dom": "^5.3.0",
     "@types/styled-components": "^5.1.14",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
@@ -46,8 +47,12 @@
     "prettier": "^2.4.1"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "!.mock.ts"
+    "coveragePathIgnorePatterns": [
+      "./src/enums/*",
+      "./src/theme/*",
+      "./src/assets/*",
+      "./src/index.tsx",
+      "reportWebVitals.ts"
     ]
   },
   "eslintConfig": {

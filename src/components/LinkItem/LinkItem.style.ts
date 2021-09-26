@@ -9,7 +9,7 @@ export const LinkItemPointsWrapper = styled.div`
   width: 6.4rem;
   height: 6.4rem;
   border-radius: 0.8rem;
-  margin-right: 0.8rem;
+  margin-right: 1.6rem;
   background-color: ${({ theme }) => theme.color.primary100};
 
   & > p {

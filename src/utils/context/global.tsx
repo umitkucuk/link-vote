@@ -6,7 +6,7 @@ import {
   Dispatch,
 } from 'react'
 import { LinkItemType } from 'components/LinkItem'
-import { sortLinks, getDataFromStorage, setDataToStorage } from 'utils'
+import { getDataFromStorage, setDataToStorage } from 'utils'
 
 type InitialStateType = {
   links: LinkItemType[]
@@ -14,18 +14,18 @@ type InitialStateType = {
   page: number
 }
 
-export interface AuthContextProps {
+export interface GlobalContextProps {
   state: InitialStateType
   dispatch: Dispatch<any>
 }
 
 const initialState = {
   links: [],
-  sortType: '',
+  sortType: 'DATE_DESC',
   page: 1,
 }
 
-export const GlobalContext = createContext<AuthContextProps>({
+export const GlobalContext = createContext<GlobalContextProps>({
   state: initialState,
   dispatch: () => null,
 })
@@ -33,14 +33,13 @@ export const GlobalContext = createContext<AuthContextProps>({
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_LINK': {
-      const updatedLinks = [action.payload, ...state.links]
-      const sortedLinks = sortLinks(updatedLinks, state.sortType)
+      const updatedLinks = [...state.links, action.payload]
+      setDataToStorage('links', updatedLinks)
       return {
         ...state,
-        links: sortedLinks,
+        links: updatedLinks,
       }
     }
-
     case 'REMOVE_LINK': {
       const linkId = action.payload
       const linkIndex = state.links.findIndex(
@@ -48,7 +47,7 @@ const reducer = (state, action) => {
       )
       const updatedLinks = [...state.links]
       updatedLinks.splice(linkIndex, 1)
-      // setDataToStorage('links', updatedLinks)
+      setDataToStorage('links', updatedLinks)
       return {
         ...state,
         links: updatedLinks,
@@ -65,26 +64,21 @@ const reducer = (state, action) => {
         points: updatedLinks[linkIndex].points + linkPoint,
         updated: new Date().getTime(),
       }
-      const sortedLinks = sortLinks(updatedLinks, state.sortType)
+      setDataToStorage('links', updatedLinks)
       return {
         ...state,
-        links: sortedLinks,
-      }
-    }
-    case 'SORT_LINKS': {
-      const sortType = action.payload
-      const sortedLinks = sortLinks(state.links, sortType)
-
-      return {
-        ...state,
-        links: sortedLinks,
-        sortType,
+        links: updatedLinks,
       }
     }
     case 'LOAD_LINKS':
       return {
         ...state,
         links: action.payload,
+      }
+    case 'CHANGE_SORT':
+      return {
+        ...state,
+        sortType: action.payload,
       }
     case 'CHANGE_PAGE':
       return {
@@ -96,11 +90,14 @@ const reducer = (state, action) => {
   }
 }
 
-export const GlobalContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+export const GlobalProvider = ({ children, initialValue = {} }) => {
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialState,
+    ...initialValue,
+  })
 
+  // get stored data from localstorage if it is exist
   useEffect(() => {
-    console.log('GlobalContext rendered')
     const storedLinks = getDataFromStorage('links')
     if (storedLinks) {
       dispatch({ type: 'LOAD_LINKS', payload: storedLinks })
@@ -116,10 +113,6 @@ export const GlobalContextProvider = ({ children }) => {
 
 export const useGlobal = () => {
   const context = useContext(GlobalContext)
-
-  if (context === undefined) {
-    throw new Error('useGlobal must be used within a GlobalProvider')
-  }
 
   return context
 }
