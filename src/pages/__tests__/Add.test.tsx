@@ -11,7 +11,7 @@ describe('Add page tests', () => {
     expect(screen.getByText('Add New Link')).toBeInTheDocument()
   })
 
-  it('add page form elements work correctly', () => {
+  it('form elements work correctly', () => {
     render(<Add />)
 
     const nameInput = screen.getByTestId('name-input')

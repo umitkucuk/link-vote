@@ -51,6 +51,7 @@ const Pagination = ({
           isDisabled={page === firstPage}
           iconOnly
           onClick={goPrev}
+          aria-label="Go previous page"
           data-testid="pagination-prev"
         />
         <>
@@ -76,6 +77,7 @@ const Pagination = ({
           isDisabled={page === totalPages}
           iconOnly
           onClick={goNext}
+          aria-label="Go next page"
           data-testid="pagination-next"
         />
       </PaginationWrapper>

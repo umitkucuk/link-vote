@@ -1,7 +1,7 @@
 import { render, screen } from 'utils/test-utils'
 import Icon from '../Icon'
 
-describe('icon tests', () => {
+describe('Icon tests', () => {
   it('should render icon correctly', () => {
     render(<Icon name="arrow-down" data-testid="arrow-icon" />)
     expect(screen.getByTestId('arrow-icon')).toBeInTheDocument()

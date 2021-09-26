@@ -1,7 +1,7 @@
 import { render, screen } from 'utils/test-utils'
 import Button from '../Button'
 
-describe('button tests', () => {
+describe('Button tests', () => {
   it('should render default button', () => {
     render(<Button>Default</Button>)
     expect(screen.getByText('Default')).toBeInTheDocument()
