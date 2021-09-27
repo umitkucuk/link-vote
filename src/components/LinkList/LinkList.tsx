@@ -8,6 +8,7 @@ import { LinkListWrapper, LinkListItems, LinkListItem } from './LinkList.style'
 const LinkList = ({ links, page, onVote, onRemove, onPageChange }) => {
   const pagedLinks = getLinksByPage(links, page, LINKS_PER_PAGE)
 
+  // go prev page if there is no links left on the current page
   useEffect(() => {
     if (pagedLinks.length === 0) {
       onPageChange(page - 1)

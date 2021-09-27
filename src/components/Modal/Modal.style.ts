@@ -34,6 +34,7 @@ export const ModalInner = styled.div`
   max-width: 40rem;
   width: 100%;
   height: 16rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 `
 
 export const ModalBody = styled.div`
