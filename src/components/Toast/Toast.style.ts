@@ -12,21 +12,27 @@ const TOAST_VARIANT = {
 
 export const ToastsContainer = styled.div`
   position: fixed;
-  top: 10%;
+  top: 3.2rem;
   left: 0;
   right: 0;
-  margin: 0 auto;
-  max-width: 40rem;
+  margin: 0 1.6rem;
+  box-sizing: border-box;
+
+  @media ${(props) => props.theme.breakpoint.tablet} {
+    margin: 0 auto;
+    max-width: 40rem;
+  }
 `
 
 export const ToastWrapper = styled.div<ToastProps>`
   padding: 1.6rem;
-  background-color: red;
   color: white;
   border-radius: 0.8rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   margin-bottom: 0.8rem;
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
 
   ${({ type }) => TOAST_VARIANT[type]};
 
