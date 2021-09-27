@@ -10,4 +10,9 @@ describe('Modal tests', () => {
     render(<Modal header="Hello World" isOpen />)
     expect(screen.getByText('Hello World')).toBeInTheDocument()
   })
+
+  it('should modal is closed', () => {
+    render(<Modal header="Hello World" />)
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument()
+  })
 })

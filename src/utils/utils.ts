@@ -44,10 +44,10 @@ export const sortLinks = (
  * @returns {Array}
  */
 export const getLinksByPage = (
-  links: LinkItemType[],
+  links: any[],
   page: number,
   itemsPerPage: number,
-): LinkItemType[] | [] => {
+): any[] => {
   try {
     const startIndex = (page - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
@@ -62,7 +62,7 @@ export const getLinksByPage = (
 /**
  * It gets desired data from the local storage.
  * @param {string} name - The local storage item key.
- * @returns {Object}
+ * @returns {Object|null}
  */
 export const getDataFromStorage = (name: string) => {
   try {
@@ -96,3 +96,12 @@ export const setDataToStorage = (name: string, data: any) => {
     console.error(`method=setDataToStorage error=${e}`)
   }
 }
+
+/**
+ * It checks the given page is valid or not.
+ * @param {number} newPage - The navigated page.
+ * @param {number} currentPage - The current page.
+ * @returns {boolean}
+ */
+export const checkPageIsValid = (newPage: number, currentPage: number) =>
+  newPage > 0 && newPage !== currentPage

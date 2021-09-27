@@ -4,7 +4,7 @@ import LinkListHeader from 'components/LinkListHeader'
 import LinkList from 'components/LinkList'
 import { LinkItemType } from 'components/LinkItem'
 import Pagination from 'components/Pagination'
-import { sortLinks } from 'utils'
+import { sortLinks, checkPageIsValid } from 'utils'
 import { useGlobal, useToaster } from 'utils/context'
 
 type SortType = 'DATE_DESC' | 'POINTS_ASC' | 'POINTS_DESC'
@@ -36,7 +36,7 @@ const Index = () => {
   )
 
   const onPageChange = (page: number) => {
-    if (page > 0) {
+    if (checkPageIsValid(page, state.page)) {
       dispatch({ type: 'CHANGE_PAGE', payload: page })
     }
   }

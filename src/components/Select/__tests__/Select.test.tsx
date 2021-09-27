@@ -17,4 +17,15 @@ describe('Select tests', () => {
     expect(onChange).toHaveBeenCalled()
     expect(select).toHaveValue('POINTS_ASC')
   })
+
+  it('should set initial value correctly', () => {
+    render(
+      <Select value="" onChange={onChange} data-testid="select">
+        <option value="">option</option>
+      </Select>,
+    )
+
+    const select = screen.queryByTestId('select')
+    expect(select).toHaveValue('')
+  })
 })

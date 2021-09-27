@@ -24,10 +24,8 @@ const Pagination = ({
     item === page ? 'primary' : 'default'
 
   const handleChange = (newPage: number) => {
-    if (page !== newPage) {
-      setPage(newPage)
-      onChange(newPage)
-    }
+    setPage(newPage)
+    onChange(newPage)
   }
 
   const goPrev = () => {
