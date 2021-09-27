@@ -14,9 +14,6 @@ const Index = () => {
   const { addToast } = useToaster()
 
   const onVote = (id: number, point: number) => {
-    if (state.sortType === 'DATE_DESC') {
-      dispatch({ type: 'CHANGE_SORT', payload: 'POINTS_DESC' })
-    }
     dispatch({ type: 'VOTE_LINK', payload: { linkId: id, linkPoint: point } })
   }
 
